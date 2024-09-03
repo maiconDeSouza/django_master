@@ -1,6 +1,6 @@
-from django.shortcuts import render
+from django.shortcuts import render, redirect
 from cars.models import Car
-from cars.forms import Carform
+from cars.forms import CarModelForm
 
 
 def home_cars_view(request):
@@ -14,5 +14,11 @@ def home_cars_view(request):
 
 
 def new_car_view(request):
-    new_car_form = Carform()
-    return render(request, 'cars/new_car.html', {'new_car_form': new_car_form})
+    if request.method == "POST":
+        new_car_form = CarModelForm(request.POST, request.FILES)
+        if new_car_form.is_valid():
+            new_car_form.save()
+            return redirect("cars_list")
+    else:
+        new_car_form = CarModelForm()
+        return render(request, 'cars/new_car.html', {'new_car_form': new_car_form})
