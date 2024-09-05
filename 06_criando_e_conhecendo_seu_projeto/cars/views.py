@@ -19,6 +19,9 @@ def new_car_view(request):
         if new_car_form.is_valid():
             new_car_form.save()
             return redirect("cars_list")
+        else:
+            # Se o formulário não for válido, renderiza a página novamente com os erros
+            return render(request, 'cars/new_car.html', {'new_car_form': new_car_form})
     else:
         new_car_form = CarModelForm()
         return render(request, 'cars/new_car.html', {'new_car_form': new_car_form})
