@@ -4,6 +4,12 @@
     </head>
     <body>
         <h1> Carros PycodeBR</h1>
-        <h3>{{ cars.model }}</h3>
+        <ul>
+            {% for car in cars %}
+                <li>
+                    {{car.brand}} - {{car.model}} - {{car.factory_year}}
+                </li>
+            {% endfor %}
+        </ul>
     </body>
 </html>
