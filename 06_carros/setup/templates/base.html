@@ -66,15 +66,33 @@
         background-color: #999;
     }
 
+
   </style>
 </head>
 <body>
   <header>
     <nav>
-      <ul>
-        <li><a href="{% url 'cars_list' %}">Carros</a></li>
-        <li><a href="{% url 'new_car' %}">Cadastrar</a></li>
-      </ul>
+      <div id="div-cars">
+        <ul>
+          {% if user.is_authenticated %}
+            <li><a href="{% url 'cars_list' %}">Carros</a></li>
+            <li><a href="{% url 'new_car' %}">Cadastrar</a></li> 
+          {% else %}
+            <li><a href="{% url 'cars_list' %}">Carros</a></li>
+          {% endif %}
+        </ul>
+      </div>
+      <div id="div-user">
+        <ul>
+          {% if user.is_authenticated %}
+            <li>Olá, {{ user.username }}</li>
+            <li><a href="{% url 'logout' %}">sair</a></li>
+          {% else %}
+            <li><a href="{% url 'login' %}">login</a></li>
+            <li><a href="{% url 'register' %}">cadastra-se</a></li>
+          {% endif %}
+        </ul>
+      </div>
     </nav>
   </header>
 
