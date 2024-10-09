@@ -1,5 +1,5 @@
 from django.contrib import admin
-from .models import Car, Brand
+from .models import Car, Brand, CarInventory
 
 # Register your models here.
 
@@ -14,5 +14,10 @@ class CarAdmin(admin.ModelAdmin):
     search_fields = ('model', 'brand')
 
 
+class CarInventoryAdmin(admin.ModelAdmin):
+    list_display = ('car_count', 'cars_value', 'created_at')
+
+
 admin.site.register(Brand, BrandAdmin)
 admin.site.register(Car, CarAdmin)
+admin.site.register(CarInventory, CarInventoryAdmin)
