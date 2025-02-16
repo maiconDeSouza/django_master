@@ -1,3 +1,11 @@
 from django.shortcuts import render
 
-# Create your views here.
+context = {
+    'cars': {
+        'model': 'Astra 2.0'
+    }
+}
+
+
+def cars_view(request):
+    return render(request, 'index.html', context)
