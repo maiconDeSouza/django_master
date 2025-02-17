@@ -1,11 +1,10 @@
 from django.shortcuts import render
-
-context = {
-    'cars': {
-        'model': 'Astra 2.0'
-    }
-}
+from .models import Car
 
 
 def cars_view(request):
+    cars = Car.objects.all()
+    context = {
+        'cars': cars
+    }
     return render(request, 'index.html', context)
