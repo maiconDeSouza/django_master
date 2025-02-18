@@ -3,9 +3,12 @@ from .models import Car
 
 
 def cars_view(request):
-    search = request.GET.get('s')
-    print(search)
     cars = Car.objects.all()
+    search = request.GET.get('s')
+
+    if search:
+        cars = cars.filter(model__icontains=search)
+
     context = {
         'cars': cars
     }
