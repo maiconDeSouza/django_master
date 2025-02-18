@@ -1,19 +1,26 @@
-<!DOCTYPE html>
-<html lang="pt-BR">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Carros</title>
-</head>
-<body>
-    <h1>Carros</h1>
+{% extends "base.html" %}
+{% block title %}PyCodeBR Cars{% endblock title %}
+{% block content %}
+<div class="container">
+    <form action="" method="get">
+        <input type="text" placeholder="Digite o nome do carro">
+        <button type="submit">Buscar</button>
+    </form>
     <ul>
-        {% for car in cars %}
+        {% for car in cars  %}
             <li>
-                <h3>{{car.model}}</h3>
-                <p>{{car.factory_year}} - {{car.brand}}</p>
+                <div>
+                    <img src="{{car.photo.url}}" alt="{{car.model}}">
+                </div>
+                <div>
+                    <h2>{{car.model}}</h2>
+                    <div>
+                        <span>{{car.factory_year}}</span>
+                        <span>R${{car.value}}</span>
+                    </div>
+                </div>
             </li>
         {% endfor %}
     </ul>
-</body>
-</html>
+</div>
+{% endblock content %}

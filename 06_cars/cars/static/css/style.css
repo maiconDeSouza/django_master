@@ -1,0 +1,173 @@
+/*
+********** Configurações **********
+*/
+:root {
+    /* Fundo do body */
+    --body-bg-color: #f4f4f4;
+
+    /* Header e Footer */
+    --header-bg-color: #222831;
+    --footer-bg-color: #222831;
+
+    /* Texto */
+    --text-color-primary: #333333;
+    --text-color-secondary: #aaaaaa;
+
+    /* Cards dos Carros */
+    --card-bg-color: #ffffff;
+    --card-text-color: #333333;
+    --card-border-color: #dddddd;
+    --card-shadow-color: rgba(0, 0, 0, 0.1);
+
+    /* Botões de ação */
+    --button-bg-color: #ff5722;
+    --button-text-color: #ffffff;
+    --button-hover-bg-color: #e64a19;
+}
+
+/* Reset básico */
+* {
+    padding: 0;
+    margin: 0;
+    box-sizing: border-box;
+    text-decoration: none;
+    list-style: none;
+    font-family: "Roboto", serif;
+}
+
+body {
+    height: 100vh;
+    display: grid;
+    grid-template-rows: 7.5rem 1fr 5rem;
+    background-color: var(--body-bg-color);
+    color: var(--text-color-primary);
+}
+
+header {
+    background-color: var(--header-bg-color);
+    color: var(--text-color-secondary);
+    display: grid;
+    place-items: center;
+}
+
+footer {
+    background-color: var(--footer-bg-color);
+    color: var(--text-color-secondary);
+}
+
+/*
+********** Main **********
+*/
+header nav ul {
+    display: flex;
+    gap: 1rem;
+}
+
+header nav ul li a {
+    display: block;
+    color: var(--text-color-secondary);
+}
+
+header nav ul li a:hover {
+    color: var(--button-text-color);
+}
+
+
+
+/*
+********** Main **********
+*/
+main .container {
+    width: 90%;
+    max-width: 70.5rem;
+    height: 100%;
+    margin: 0 auto;
+    padding: 1rem;
+}
+
+/* Barra de busca */
+main .container form {
+    display: flex;
+    justify-content: center;
+    gap: 1rem;
+}
+
+main .container form input {
+    width: 25rem;
+    padding: 1rem;
+    border: none;
+    border-radius: 8px;
+}
+
+main .container form button {
+    padding: 1rem;
+    border: none;
+    border-radius: 8px;
+    background-color: var(--button-bg-color);
+    color: var(--button-text-color);
+    font-weight: 900;
+    cursor: pointer;
+    transition: all .3s;
+}
+
+main .container form button:hover {
+    background-color: var(--button-hover-bg-color);
+}
+
+/* Grid dos cards */
+main .container ul {
+    display: grid;
+    margin: 2rem;
+    grid-template-columns: repeat(auto-fit, minmax(25rem, 1fr));
+    gap: 2rem;
+}
+
+/* Cards */
+main .container ul li {
+    background-color: var(--card-bg-color);
+    color: var(--card-text-color);
+    box-shadow: 0 2px 5px var(--card-shadow-color);
+    border-radius: 8px;
+    overflow: hidden;
+    transition: transform 0.3s ease;
+    cursor: pointer;
+}
+
+main .container ul li:hover {
+    transform: scale(1.02);
+}
+
+/* Imagem */
+main .container ul li div:nth-of-type(1) {
+    height: 20rem;
+    overflow: hidden;
+}
+
+main .container ul li div:nth-of-type(1) img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+/* Informações do carro */
+main .container ul li div:nth-of-type(2) {
+    height: 4rem;
+    padding: 0.3rem 1rem;
+    font-size: 0.9rem;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    gap: 0.3rem;
+}
+
+main .container ul li div:nth-of-type(2) h2 {
+    font-size: 1rem;
+    font-weight: bold;
+}
+
+main .container ul li div:nth-of-type(2) div {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    font-size: 0.85rem;
+}
