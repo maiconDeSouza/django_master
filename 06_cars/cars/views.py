@@ -22,9 +22,9 @@ def new_car(request):
         if new_car_form.is_valid():
             new_car_form.save()
             return redirect('car_list')
-    else:
-        new_car_form = CarsForms()
-        context = {
-            'new_car_form': new_car_form
-        }
-        return render(request, 'new_car.html', context)
+
+    new_car_form = CarsForms()
+    context = {
+        'new_car_form': new_car_form
+    }
+    return render(request, 'new_car.html', context)

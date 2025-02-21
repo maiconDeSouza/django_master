@@ -1,5 +1,5 @@
 from django import forms
-from .models import Brand, Car
+from .models import Car
 
 
 # class CarsForms(forms.Form):
@@ -27,3 +27,10 @@ class CarsForms(forms.ModelForm):
     class Meta:
         model = Car
         fields = '__all__'
+
+    def clean_value(self):
+        value = self.cleaned_data.get('value')
+        if value < 5000:
+            self.add_error(
+                'value', 'Não Aceitamos carros a baixo de 5 mil reais')
+        return value
