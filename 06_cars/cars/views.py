@@ -1,26 +1,56 @@
 from django.shortcuts import render, redirect
 from .models import Car
 from .forms import CarsForms
+from django.views import View
 
 
-def cars_view(request):
-    cars = Car.objects.all()
-    search = request.GET.get('s')
+# def cars_view(request):
+#     cars = Car.objects.all()
+#     search = request.GET.get('s')
 
-    if search:
-        cars = cars.filter(model__icontains=search)
+#     if search:
+#         cars = cars.filter(model__icontains=search)
 
-    context = {
-        'cars': cars
-    }
-    return render(request, 'index.html', context)
+#     context = {
+#         'cars': cars
+#     }
+#     return render(request, 'index.html', context)
 
 
-def new_car(request):
-    new_car_form = CarsForms(request.POST or None, request.FILES or None)
+class CarsView(View):
+    def get(self, request):
+        search = request.GET.get('s', '')
 
-    if request.method == 'POST' and new_car_form.is_valid():
-        new_car_form.save()
-        return redirect('car_list')
+        cars = Car.objects.filter(
+            model__icontains=search) if search else Car.objects.all()
 
-    return render(request, 'new_car.html', {'new_car_form': new_car_form})
+        context = {
+            'cars': cars
+        }
+        return render(request, 'index.html', context)
+
+
+# def new_car(request):
+#     new_car_form = CarsForms(request.POST or None, request.FILES or None)
+
+#     if request.method == 'POST' and new_car_form.is_valid():
+#         new_car_form.save()
+#         return redirect('car_list')
+
+#     return render(request, 'new_car.html', {'new_car_form': new_car_form})
+
+
+class NewCarView(View):
+
+    def post(self, request):
+        new_car_form = CarsForms(request.POST or None, request.FILES or None)
+
+        if new_car_form.is_valid():
+            new_car_form.save()
+            return redirect('car_list')
+
+        return render(request, 'new_car.html', {'new_car_form': new_car_form})
+
+    def get(self, request):
+        new_car_form = CarsForms()
+        return render(request, 'new_car.html', {'new_car_form': new_car_form})

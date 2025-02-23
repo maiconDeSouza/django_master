@@ -2,8 +2,8 @@
 {% block title %}PyCodeBR Cars{% endblock title %}
 {% block content %}
 <div class="container">
-    <form action="" method="get">
-        <input type="text" placeholder="Digite o nome do carro">
+    <form method="get">
+        <input type="text" name="s" placeholder="Digite o nome do carro" value="{{ request.GET.s }}">
         <button type="submit">Buscar</button>
     </form>
     <ul>

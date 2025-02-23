@@ -41,3 +41,4 @@ class CarsForms(forms.ModelForm):
         if factory_year < 1930:
             self.add_error(
                 'factory_year', 'Só Aceitamos carros fabricados acima de 1929')
+        return factory_year
