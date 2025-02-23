@@ -17,14 +17,10 @@ def cars_view(request):
 
 
 def new_car(request):
-    if request.method == 'POST':
-        new_car_form = CarsForms(request.POST, request.FILES)
-        if new_car_form.is_valid():
-            new_car_form.save()
-            return redirect('car_list')
+    new_car_form = CarsForms(request.POST or None, request.FILES or None)
 
-    new_car_form = CarsForms()
-    context = {
-        'new_car_form': new_car_form
-    }
-    return render(request, 'new_car.html', context)
+    if request.method == 'POST' and new_car_form.is_valid():
+        new_car_form.save()
+        return redirect('car_list')
+
+    return render(request, 'new_car.html', {'new_car_form': new_car_form})

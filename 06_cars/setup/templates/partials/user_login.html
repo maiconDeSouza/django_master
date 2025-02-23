@@ -1,0 +1,14 @@
+<ul>
+    <li>
+        Olá, {{user.username}}
+    </li>
+    <li>
+        <a href="{% url "car_list" %}">Carros</a>
+    </li>
+    <li>
+        <a href="{% url "new_car" %}">Cadastrar Novo Carro</a>
+    </li>
+    <li>
+        <a href="{% url "logout" %}">Sair</a>
+    </li>
+</ul>

@@ -1,4 +1,5 @@
 from django import forms
+from django.core.exceptions import ValidationError
 from .models import Car
 
 
@@ -34,3 +35,9 @@ class CarsForms(forms.ModelForm):
             self.add_error(
                 'value', 'Não Aceitamos carros a baixo de 5 mil reais')
         return value
+
+    def clean_factory_year(self):
+        factory_year = self.cleaned_data.get('factory_year')
+        if factory_year < 1930:
+            self.add_error(
+                'factory_year', 'Só Aceitamos carros fabricados acima de 1929')

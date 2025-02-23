@@ -1,0 +1,35 @@
+{% extends "base.html" %}
+
+{% block title %}Cadastrar novo usuário{% endblock title %}
+
+{% block content %}
+    <div class="container">
+        <form method="post" class="user-register">
+            {% csrf_token %}
+            <div>
+                <label for="">Nome de Usuário</label>
+                {{user_form.username}}
+            </div>
+            <div>
+                <label for="">Digite sua senha</label>
+                {{user_form.password1}}
+            </div>
+            <div>
+                <label for="">Repita sua Senha</label>
+                {{user_form.password2}}
+            </div>
+            <div>
+                <button type="submit">Registrar</button>
+            </div>
+            <p>
+                {% if user_form.errors %}
+                    {% for field_name, error_list in user_form.errors.items %}
+                        {% for error in error_list %}
+                            <span>{{ field_name }}: {{ error }}</span><br>
+                        {% endfor %}
+                    {% endfor %}
+                {% endif %}
+            </p>
+        </form>
+    </div>
+{% endblock content %}
