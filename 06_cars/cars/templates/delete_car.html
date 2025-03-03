@@ -1,0 +1,16 @@
+{% extends "base.html" %}
+{% block title %}Apagar o {{car.model}}{% endblock title %}
+
+{% block content %}
+<div class="container">
+    <form method="post">
+        {% csrf_token %}
+        <p>Tem certeza que quer deletar o "{{ object.model }}"?</p>
+        {{ form }}
+        <input type="submit" value="Confirmar" class="button button--delete">
+        <a href="{% url "car_detail" object.pk %}" class="button button--back">
+           Cancelar
+        </a>
+    </form>
+</div>
+{% endblock content %}

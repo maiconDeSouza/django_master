@@ -9,16 +9,18 @@
     <ul>
         {% for car in cars  %}
             <li>
-                <div>
-                    <img src="{{car.photo.url}}" alt="{{car.model}}">
-                </div>
-                <div>
-                    <h2>{{car.model}}</h2>
+                <a href="{% url "car_detail" car.pk %}">
                     <div>
-                        <span>{{car.factory_year}}</span>
-                        <span>R${{car.value}}</span>
+                        <img src="{{car.photo.url}}" alt="{{car.model}}">
                     </div>
-                </div>
+                    <div>
+                        <h2>{{car.model}}</h2>
+                        <div>
+                            <span>{{car.factory_year}}</span>
+                            <span>R${{car.value}}</span>
+                        </div>
+                    </div>
+                </a>
             </li>
         {% endfor %}
     </ul>

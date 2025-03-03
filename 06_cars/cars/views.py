@@ -1,9 +1,13 @@
 from django.shortcuts import render, redirect
+from django.views.generic import ListView, CreateView, DetailView, DeleteView, UpdateView
+from django.contrib.auth.mixins import UserPassesTestMixin
+from django.urls import reverse_lazy
+
+from django.contrib.auth.decorators import login_required
+from django.utils.decorators import method_decorator
+
 from .models import Car
 from .forms import CarsForms
-from django.views.generic import ListView, CreateView
-from django.contrib.auth.mixins import UserPassesTestMixin
-
 
 # def cars_view(request):
 #     cars = Car.objects.all()
@@ -80,4 +84,35 @@ class NewCarCreateView(UserPassesTestMixin, CreateView):
         return self.request.user.is_staff
 
     def handle_no_permission(self):
-        return redirect('/')
+        return redirect('/login/')
+
+
+class CarDetail(DetailView):
+    model = Car
+    template_name = 'detail_car.html'
+    context_object_name = 'car'
+
+
+class CarUpdate(UserPassesTestMixin, UpdateView):
+    model = Car
+    form_class = CarsForms
+    template_name = 'update_car.html'
+
+    def test_func(self):
+        return self.request.user.is_staff
+
+    def handle_no_permission(self):
+        return redirect('/login/')
+
+    def get_success_url(self):
+        context = {
+            'pk': self.object.pk
+        }
+        return reverse_lazy('car_detail', kwargs=context)
+
+
+@method_decorator(login_required(login_url='login'), name='dispatch')
+class CarDelete(DeleteView):
+    model = Car
+    template_name = 'delete_car.html'
+    success_url = '/'
