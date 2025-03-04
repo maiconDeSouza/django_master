@@ -1,6 +1,6 @@
 from django.shortcuts import render, redirect
 from django.views.generic import ListView, CreateView, DetailView, DeleteView, UpdateView
-from django.contrib.auth.mixins import UserPassesTestMixin
+from django.contrib.auth.mixins import UserPassesTestMixin, LoginRequiredMixin
 from django.urls import reverse_lazy
 
 from django.contrib.auth.decorators import login_required
@@ -93,16 +93,11 @@ class CarDetail(DetailView):
     context_object_name = 'car'
 
 
-class CarUpdate(UserPassesTestMixin, UpdateView):
+@method_decorator(login_required(login_url='login'), name='dispatch')
+class CarUpdate(UpdateView):
     model = Car
     form_class = CarsForms
     template_name = 'update_car.html'
-
-    def test_func(self):
-        return self.request.user.is_staff
-
-    def handle_no_permission(self):
-        return redirect('/login/')
 
     def get_success_url(self):
         context = {
@@ -111,8 +106,13 @@ class CarUpdate(UserPassesTestMixin, UpdateView):
         return reverse_lazy('car_detail', kwargs=context)
 
 
-@method_decorator(login_required(login_url='login'), name='dispatch')
-class CarDelete(DeleteView):
+class CarDelete(UserPassesTestMixin, DeleteView):
     model = Car
     template_name = 'delete_car.html'
     success_url = '/'
+
+    def test_func(self):
+        return self.request.user.is_staff
+
+    def handle_no_permission(self):
+        return redirect('/login/')
